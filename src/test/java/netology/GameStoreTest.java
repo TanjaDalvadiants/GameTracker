@@ -58,7 +58,7 @@ public class GameStoreTest {
 
         int expected = 9;
         int actual = store.getSumPlayedTime();
-        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(expected, actual);
     }
 
     // Проверяем, что метод getMostPlayer() возвращает null если нет игроков
@@ -68,7 +68,7 @@ public class GameStoreTest {
         GameStore store = new GameStore();
 
         String actual = store.getMostPlayer();
-        Assertions.assertEquals(actual, null);
+        Assertions.assertEquals(null, actual);
     }
 
     // Проверяем, что метод getMostPlayer() возвращает имя игрока с большим количеством часов игры
@@ -81,7 +81,7 @@ public class GameStoreTest {
 
         String expected = "Igor";
         String actual = store.getMostPlayer();
-        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(expected, actual);
     }
 
     // Проверяем, что метод getMostPlayer() возвращает имя игрока с большим количеством часов игры, если игрок 1
@@ -93,7 +93,7 @@ public class GameStoreTest {
 
         String expected = "Oleg";
         String actual = store.getMostPlayer();
-        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(expected, actual);
     }
 
     // Проверяем, что метод getMostPlayer() возвращает имя игрока с большим количеством часов игры,
@@ -106,7 +106,7 @@ public class GameStoreTest {
 
         String expected = "Oleg";
         String actual = store.getMostPlayer();
-        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(expected, actual);
     }
 
     // Проверяем, что метод getMostPlayer() возвращает имя игрока с большим количеством часов игры,
@@ -125,7 +125,7 @@ public class GameStoreTest {
 
         String expected = "Oleg";
         String actual = store.getMostPlayer();
-        Assertions.assertEquals(actual, expected);
+        Assertions.assertEquals(expected, actual);
     }
 
     // Проверяем, что метод getSumPlayedTime() добавляет часы в несколько приемов для одного игрока
