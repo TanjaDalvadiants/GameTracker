@@ -1,7 +1,10 @@
 package ru.netology;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+
+import java.util.Arrays;
 
 public class Player {
     private String name;
@@ -47,6 +50,8 @@ public class Player {
         for (Game game : playedTime.keySet()) {
             if (game.getGenre().equals(genre)) {
                 sum += playedTime.get(game);
+
+
             } else {
                 sum = 0;
             }
