@@ -57,7 +57,6 @@ public class PlayerTest {
         player.installGame(game1);
         player.play(game1, 3);
 
-        player.installGame(game1);
         player.play(game1, 3);
 
         int expected = 6;
@@ -66,21 +65,41 @@ public class PlayerTest {
 
     }
 
-    // Суммирует общее время игры во все игры, если играли меньше часа
+    //Тест, который два раза подряд устанавливает одну и ту же игру, но играет только один раз
     @Test
-    public void shouldSumPlayHoursIfNull() {
+    public void shouldSumPlayHoursIfInstalTwoTimes() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        player.installGame(game1);
+        player.play(game1, 3);
+
+        player.installGame(game1);
+
+
+        int expected = 3;
+        int actual = player.play(game1, 3);
+        assertEquals(expected, actual);
+    }
+
+    //Суммирует общее время игры во все игры, если играли меньше часа
+    @Test
+    public void shouldSummPlayHoursIfZero() {
         GameStore store = new GameStore();
         Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
         Game game2 = store.publishGame("Цивилизация", "Стратегия");
 
         Player player = new Player("Petya");
-        player.installGame(game2);
+        player.installGame(game1);
         player.play(game1, 0);
+        player.installGame(game2);
+        player.play(game2, 0);
 
 
         int expected = 0;
-        int actual = player.play(game1, 0);
-        assertEquals(expected, actual);
+        int actual = store.getSumPlayedTime();
+        Assertions.assertEquals(expected, actual);
 
     }
 
@@ -98,20 +117,26 @@ public class PlayerTest {
         int expected = 5;
         int actual = player.play(game2, 5);
         Assertions.assertThrows(NotFoundException.class,
-                () -> player.play(game3, 5)
+                () -> player.play(game1, 5)
         );
     }
 
     // Возвращает название жанра игры, в который играли больше всего
     @Test
     public void shouldFindMostPlayerByGenre() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Game game2 = store.publishGame("Цивилизация", "Стратегия");
 
-        Player player = new Player();
-        player.play("Аркады", 4);
-        player.play("Стратегии", 2);
 
-        String expected = "Аркады";
-        String actual = String.valueOf(player.mostPlayerByGenre("Аркады"));
+        Player player = new Player("Petya");
+        player.installGame(game1);
+        player.play(game1, 4);
+        player.installGame(game2);
+        player.play(game2, 2);
+
+        Game expected = game1;
+        Game actual = player.mostPlayerByGenre("Аркады");
         Assertions.assertEquals(expected, actual);
     }
 
@@ -119,12 +144,16 @@ public class PlayerTest {
 
     @Test
     public void shouldFindMostPlayerByGenreIfNull() {
+        GameStore store = new GameStore();
+        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
 
-        Player player = new Player();
-        player.play("Аркады", 4);
 
-        String expected = null;
+        Player player = new Player("Petya");
+        player.installGame(game1);
+        player.play(game1, 4);
+
+
         String actual = String.valueOf(player.mostPlayerByGenre("Стратегии"));
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(null, actual);
     }
 }
